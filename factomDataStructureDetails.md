@@ -112,7 +112,7 @@ An Entry Commit is a payment for a specific Entry. It deducts a balance held by 
 | 32 bytes | Entry Hash | This is the SHA512+256 descriptor of the Entry to be paid for. |
 | 1 byte | Number of Entry Credits | This is the number of Entry Credits which will be deducted from the balance of the public key. Any values above 10 are invalid. |
 | 32 bytes | Pubkey | This is the Entry Credit public key which will have the balance reduced. It is the ed25519 A value. |
-| 64 bytes | Signature | This is a signature of this Entry Commit by the pubkey.  Parts ordered R then S. Signature covers from Version through 'Number of Entry Credits' |
+| 64 bytes | Signature | This is a signature of this Entry Commit by the Entry Credit private key corresponding to pubkey.  Parts ordered R then S. Signature covers from Version through 'Number of Entry Credits' |
 
 The Entry Commit is only valid for 12 hours before and after the milliTimestamp. Since Entry Credits are balance based, replay attacks can reduce balances. Also a user can pay for the same Entry twice, and have two copies in Factom. Since a P2P network is used, the payments would need to be differentiated. The payments would be differentiated by public key and the time specified. This puts a limit of 1000 per second on any individual Entry Credit public key per duplicate Entry. The milliTimestamp also helps the network protect itself.  Adding the time element allows peers to automatically reject payments beyond 12 hours plus or minus. This means they must check for duplicates only over a rolling one day period. 
 
